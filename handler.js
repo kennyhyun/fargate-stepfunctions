@@ -1,7 +1,12 @@
 'use strict';
 
+const pack = json => {
+  const str = JSON.stringify(json);
+  return Buffer.from(str, 'utf8').toString('base64');
+};
+
 module.exports.hello = (event, context, callback) => {
-  callback(null, { jobId: 101, userGroupId:1001 });
+  callback(null, { command: ['tasks/run.sh', pack({ jobId: 101, userGroupId:1001 })] });
 };
 
 module.exports.ciao = (event, context, callback) => {

@@ -13,6 +13,8 @@
 
 service: serverless-step-functions
 
+frameworkVersion: ">=1.2.0 <2.0.0"
+
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
@@ -92,11 +94,17 @@ stepFunctions:
               Overrides:
                 ContainerOverrides:
                   - Name: "#{ServiceName}"
-                    Command:
-                      - "app/exec"
+                    Command.$: "$.command"
                     Cpu: 1
                     Memory: 512
                     MemoryReservation: 512
+                    Environment:
+                      - Name: SUPPLIER_CODE
+                        Value: "#{SupplierCode}"
+                      - Name: STAGE
+                        Value: ${self:provider.stage}
+                      - Name: EVENT
+                        Value.$: "$.command.1"
             Next: CiaoWorld
           CiaoWorld:
             Type: Task
@@ -146,6 +154,14 @@ resources:
       Type: String
       Default: dockerFargate
       Description: A name for the service
+    SupplierCode:
+      Type: String
+      Default: stg-whitechdev
+      Description: A supplier code
+    DatabaseHost:
+      Type: String
+      Default: localhost:3306
+      Description: A database host
     ImageUrl:
       Type: String
       Default: stepfunctiontest:latest
@@ -358,7 +374,7 @@ resources:
           - Name: !Ref 'ServiceName'
             Cpu: !Ref 'ContainerCpu'
             Memory: !Ref 'ContainerMemory'
-            Image: '#{AWS::AccountId}.dkr.ecr.#{AWS::Region}.amazonaws.com/stepfunctiontest:latest'
+            Image: '#{AWS::AccountId}.dkr.ecr.#{AWS::Region}.amazonaws.com/#{ImageUrl}'
             PortMappings:
               - ContainerPort: !Ref 'ContainerPort'
             LogConfiguration:
