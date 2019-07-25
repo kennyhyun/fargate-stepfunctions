@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports.hello = (event, context, callback) => {
-  callback(null, null);
+  callback(null, { jobId: 101, userGroupId:1001 });
 };
 
 module.exports.ciao = (event, context, callback) => {
