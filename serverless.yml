@@ -104,7 +104,7 @@ stepFunctions:
                       - Name: STAGE
                         Value: ${self:provider.stage}
                       - Name: EVENT
-                        Value.$: "$.command.1"
+                        Value.$: "$.event"
             Next: CiaoWorld
           CiaoWorld:
             Type: Task

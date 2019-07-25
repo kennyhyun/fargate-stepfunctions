@@ -6,7 +6,8 @@ const pack = json => {
 };
 
 module.exports.hello = (event, context, callback) => {
-  callback(null, { command: ['tasks/run.sh', pack({ jobId: 101, userGroupId:1001 })] });
+  const jsonstr = pack({ jobId: 101, userGroupId:1001 });
+  callback(null, { command: ['tasks/run.sh', jsonstr], event: jsonstr });
 };
 
 module.exports.ciao = (event, context, callback) => {
