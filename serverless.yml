@@ -103,6 +103,8 @@ stepFunctions:
                         Value: "#{SupplierCode}"
                       - Name: STAGE
                         Value: ${self:provider.stage}
+                      - Name: TASK_TOKEN_ENV_VARIABLE
+                        Value.$: "$$.Task.Token"
                       - Name: EVENT
                         Value.$: "$.event"
             Next: CiaoWorld
