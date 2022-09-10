@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "dependencies": {
     "serverless-pseudo-parameters": "^2.4.0",
-    "serverless-step-functions": "^1.19.2"
+    "serverless-step-functions": "^3.8.0"
   },
   "devDependencies": {
-    "serverless": "^1.48.3"
+    "serverless": "^3.22.0"
   }
 }
