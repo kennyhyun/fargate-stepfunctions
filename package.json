@@ -7,6 +7,6 @@
     "serverless-step-functions": "^1.19.2"
   },
   "devDependencies": {
-    "serverless": "^1.48.3"
+    "serverless": "^1.83.3"
   }
 }
